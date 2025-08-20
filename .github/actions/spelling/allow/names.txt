@@ -1,0 +1,6 @@
+Debian
+MSYS
+Siegburg
+libspiro
+pacman
+ucrt

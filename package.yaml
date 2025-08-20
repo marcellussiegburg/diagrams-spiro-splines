@@ -1,0 +1,83 @@
+---
+name: diagrams-spiro-splines
+version: 0.0.0.1
+github: "marcellussiegburg/diagrams-spiro-splines"
+license: MIT
+author: "Marcellus Siegburg"
+maintainer: "marcellus.siegburg@uni-due.de"
+copyright: "2025 Marcellus Siegburg"
+synopsis: Provides spiro splines for diagrams using a FFI to libspiro
+category: Graphics
+description:
+  Please see the README on GitHub at
+  <https://github.com/marcellussiegburg/diagrams-spiro-splines#readme>
+tested-with:
+  - GHC == 9.12.2
+  - GHC == 9.10.2
+  - GHC == 9.8.4
+  - GHC == 9.6.7
+  - GHC == 9.4.8
+  - GHC == 9.2.8
+extra-source-files:
+  - LICENSE
+build-tools: [ ]
+ghc-options:
+  - -Wall
+  - -Wincomplete-uni-patterns
+  - -Wincomplete-record-updates
+  - -Widentities
+  - -Wredundant-constraints
+  - -Werror
+dependencies:
+  - base
+  - composition
+  - derive-storable
+  - diagrams-lib
+  - matchable
+library:
+  source-dirs: src
+  exposed-modules:
+    - Diagrams.Segment.SpiroSpline
+  when:
+    - condition: os(darwin)
+      include-dirs:
+        - /opt/homebrew/opt/libspiro/include
+        - /usr/local/include
+      extra-lib-dirs:
+        - /opt/homebrew/opt/libspiro/lib
+        - /usr/local/lib
+      extra-libraries:
+        - spiro
+    - condition: os(linux)
+      include-dirs:
+        - /usr/include
+        - /usr/local/include
+      extra-lib-dirs:
+        - /usr/lib
+        - /usr/local/lib
+      extra-libraries:
+        - spiro
+    - condition: os(windows)
+      include-dirs:
+        - C:/msys64/ucrt64/include
+        - C:/msys64/mingw64/include
+        - C:/msys64/clang64/include
+      extra-lib-dirs:
+        - C:/msys64/ucrt64/lib
+        - C:/msys64/mingw64/lib
+        - C:/msys64/clang64/lib
+      extra-libraries:
+        - libspiro
+tests:
+  diagrams-spiro-splines-test:
+    main: Spec.hs
+    source-dirs:
+      - test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - diagrams-lib
+      - diagrams-spiro-splines
+      - hspec
