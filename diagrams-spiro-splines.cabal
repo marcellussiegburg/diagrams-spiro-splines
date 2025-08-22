@@ -1,0 +1,98 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.38.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           diagrams-spiro-splines
+version:        0.0.0.1
+synopsis:       Provides spiro splines for diagrams using a FFI to libspiro
+description:    Please see the README on GitHub at <https://github.com/marcellussiegburg/diagrams-spiro-splines#readme>
+category:       Graphics
+homepage:       https://github.com/marcellussiegburg/diagrams-spiro-splines#readme
+bug-reports:    https://github.com/marcellussiegburg/diagrams-spiro-splines/issues
+author:         Marcellus Siegburg
+maintainer:     marcellus.siegburg@uni-due.de
+copyright:      2025 Marcellus Siegburg
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+tested-with:
+    GHC == 9.12.2
+  , GHC == 9.10.2
+  , GHC == 9.8.4
+  , GHC == 9.6.7
+  , GHC == 9.4.8
+  , GHC == 9.2.8
+extra-source-files:
+    LICENSE
+
+source-repository head
+  type: git
+  location: https://github.com/marcellussiegburg/diagrams-spiro-splines
+
+library
+  exposed-modules:
+      Diagrams.Segment.SpiroSpline
+  other-modules:
+      Diagrams.Segment.SpiroSpline.FFI
+      Diagrams.Segment.SpiroSpline.Types
+      Paths_diagrams_spiro_splines
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Widentities -Wredundant-constraints -Werror
+  build-depends:
+      base
+    , composition
+    , derive-storable
+    , diagrams-lib
+    , matchable
+  default-language: Haskell2010
+  if os(darwin)
+    include-dirs:
+        /opt/homebrew/opt/libspiro/include
+        /usr/local/include
+    extra-lib-dirs:
+        /opt/homebrew/opt/libspiro/lib
+        /usr/local/lib
+    extra-libraries:
+        spiro
+  if os(linux)
+    include-dirs:
+        /usr/include
+        /usr/local/include
+    extra-lib-dirs:
+        /usr/lib
+        /usr/local/lib
+    extra-libraries:
+        spiro
+  if os(windows)
+    include-dirs:
+        C:/msys64/ucrt64/include
+        C:/msys64/mingw64/include
+        C:/msys64/clang64/include
+    extra-lib-dirs:
+        C:/msys64/ucrt64/lib
+        C:/msys64/mingw64/lib
+        C:/msys64/clang64/lib
+    extra-libraries:
+        libspiro
+
+test-suite diagrams-spiro-splines-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Diagrams.Segment.SpiroSplineSpec
+      Paths_diagrams_spiro_splines
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Widentities -Wredundant-constraints -Werror -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base
+    , composition
+    , derive-storable
+    , diagrams-lib
+    , diagrams-spiro-splines
+    , hspec
+    , matchable
+  default-language: Haskell2010
