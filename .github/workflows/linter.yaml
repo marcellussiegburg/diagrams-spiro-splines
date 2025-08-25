@@ -9,7 +9,7 @@ on:
     branches:
       - "**"
 
-permissions: { }
+permissions: {}
 
 jobs:
   build:
@@ -30,11 +30,15 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Preprocess Haskell files to accept specific single space indent
+        run: |
+          git ls-files '*.hs' -z | xargs -0 sed -i 's/^ )$/  )/'
+
       - name: Run Linter
-        uses: super-linter/super-linter@ffde3b2b33b745cb612d787f669ef9442b1339a6
+        uses: super-linter/super-linter/slim@ffde3b2b33b745cb612d787f669ef9442b1339a6
         env:
+          LINTER_RULES_PATH: .
+          YAML_CONFIG_FILE: .yamllint.yaml
           YAML_ERROR_ON_WARNING: true
           GITHUB_ACTIONS_COMMAND_ARGS: -shellcheck=
-          VALIDATE_MMARKDOWN_PRETTIER: false
-          VALIDATE_YAML_PRETTIER: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

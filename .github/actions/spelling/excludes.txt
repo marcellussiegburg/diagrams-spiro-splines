@@ -32,6 +32,7 @@
 \.jar$
 \.jks$
 \.jpe?g$
+\.jscpd.json$
 \.key$
 \.lib$
 \.lock$

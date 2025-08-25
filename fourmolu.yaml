@@ -12,7 +12,7 @@ haddock-style: multi-line
 haddock-style-module: multi-line
 haddock-location-signature: auto
 let-style: mixed
-in-style: no-space
+in-style: left-align
 if-style: indented
 single-constraint-parens: never
 single-deriving-parens: never
@@ -22,5 +22,5 @@ sort-deriving-clauses: true
 trailing-section-operators: false
 unicode: never
 respectful: true
-fixities: [ ]
-reexports: [ ]
+fixities: []
+reexports: []

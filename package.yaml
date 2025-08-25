@@ -8,8 +8,7 @@ maintainer: "marcellus.siegburg@uni-due.de"
 copyright: "2025 Marcellus Siegburg"
 synopsis: Provides spiro splines for diagrams using a FFI to libspiro
 category: Graphics
-description:
-  Please see the README on GitHub at
+description: Please see the README on GitHub at
   <https://github.com/marcellussiegburg/diagrams-spiro-splines#readme>
 tested-with:
   - GHC == 9.12.2
@@ -20,7 +19,7 @@ tested-with:
   - GHC == 9.2.8
 extra-source-files:
   - LICENSE
-build-tools: [ ]
+build-tools: []
 ghc-options:
   - -Wall
   - -Wincomplete-uni-patterns

@@ -86,8 +86,8 @@ data SpiroPoint point
   deriving (Eq, Foldable, Functor, Generic, Show)
 
 {- |
-Takes a 'SpiroPoint' and transforms it into possibly multiple internal
- t'SpiroControlPoint's.
+Takes a 'SpiroPoint' and transforms it
+into possibly multiple internal t'SpiroControlPoint's.
 -}
 toSpiroControlPoints :: SpiroPoint (P2 Double) -> [SpiroControlPoint]
 toSpiroControlPoints = \case
@@ -100,11 +100,11 @@ toSpiroControlPoints = \case
   where
     pointWithTag point spiroTypeFlag =
       let (x, y) = unp2 point
-      in SpiroControlPoint
-           { spiroX = realToFrac x
-           , spiroY = realToFrac y
-           , spiroType = fromIntegral $ ord spiroTypeFlag
-           }
+      in  SpiroControlPoint
+            { spiroX = realToFrac x
+            , spiroY = realToFrac y
+            , spiroType = fromIntegral $ ord spiroTypeFlag
+            }
 
 {- |
 Given a t'SpiroSpline' transform it into the internal representation.

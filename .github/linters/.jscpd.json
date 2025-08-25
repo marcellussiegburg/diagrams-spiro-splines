@@ -1,4 +1,0 @@
-{
-  "reporters": ["consoleFull"],
-  "ignore": ["**/__snapshots__/**"]
-}

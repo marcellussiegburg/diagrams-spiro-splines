@@ -4,7 +4,7 @@ name: Haskell CI
 on:
   push:
     branches:
-      - '**'
+      - "**"
   pull_request:
     branches:
       - master
@@ -20,11 +20,11 @@ jobs:
           - ubuntu-latest
           - windows-latest
         plan:
-          - {resolver: lts-20.26, stack-yaml: stack.lts-20.yaml}
-          - {resolver: lts-21.25}
-          - {resolver: lts-22.44}
-          - {resolver: lts-23.28}
-          - {resolver: nightly}
+          - { resolver: lts-20.26, stack-yaml: stack.lts-20.yaml }
+          - { resolver: lts-21.25 }
+          - { resolver: lts-22.44 }
+          - { resolver: lts-23.28 }
+          - { resolver: nightly }
         include:
           - os: macOS-latest
             brew: libspiro
@@ -78,8 +78,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: |
-              ~\AppData\Roaming\stack
-              ~\AppData\Local\Programs\stack
+            ~\AppData\Roaming\stack
+            ~\AppData\Local\Programs\stack
           key: >-
             ${{ runner.os }}-stack-global-${{ matrix.plan.resolver }}-${{
             hashFiles(matrix.plan.stack-yaml || 'stack.yaml') }}-${{
@@ -109,6 +109,9 @@ jobs:
         with:
           enable-stack: true
           stack-no-global: true
+
+      - name: Update Stack package index
+        run: stack update
 
       - name: Install dependencies on unix
         run: |
@@ -177,8 +180,8 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: |
-              ~\AppData\Roaming\stack
-              ~\AppData\Local\Programs\stack
+            ~\AppData\Roaming\stack
+            ~\AppData\Local\Programs\stack
           key: >-
             ${{ runner.os }}-stack-global-${{ matrix.plan.resolver }}-${{
             hashFiles(matrix.plan.stack-yaml || 'stack.yaml') }}-${{
