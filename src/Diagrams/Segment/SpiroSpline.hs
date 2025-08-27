@@ -42,13 +42,14 @@ import Diagrams.Prelude (
   Trail,
   V2,
   bezier3,
+  closeTrail,
   fromSegments,
   straight,
   (*^),
  )
 
-import Diagrams.Segment.SpiroSpline.FFI (runSpiro)
-import Diagrams.Segment.SpiroSpline.Types (
+import Diagrams.Segment.SpiroSpline.Internal.FFI (runSpiro)
+import Diagrams.Segment.SpiroSpline.Internal.Types (
   SpiroPoint (..),
   SpiroSpline (..),
   SplineSegment (..),
@@ -62,7 +63,7 @@ Converts a 'SplineSegment' returned by the C library to a diagrams 'Segment'.
 'Nothing' on 'MoveTo' or 'Close'.
 -}
 segmentToDiagrams
-  :: SplineSegment
+  :: SplineSegment (P2 Double)
   -- ^ segment to process
   -> Maybe (Segment Closed V2 Double)
 segmentToDiagrams = \case
@@ -87,7 +88,7 @@ segmentToDiagrams = \case
 {- |
 Convert a 'SplineSegment' retrieved from libspiro to a diagrams 'Trail'.
 -}
-segmentsToTrail :: [SplineSegment] -> Trail V2 Double
+segmentsToTrail :: [SplineSegment (P2 Double)] -> Trail V2 Double
 segmentsToTrail = fromSegments . mapMaybe segmentToDiagrams
 
 {- |
@@ -100,5 +101,8 @@ spiroSplineToTrail
 spiroSplineToTrail spiroSpline = do
   let controlPoints = fromSpiroSpline spiroSpline
   bezierSegments <- runSpiro controlPoints
+  let close = case spiroSpline of
+        Closed {} -> closeTrail
+        Open {} -> id
   let splineSegments = map convertBezierSegment bezierSegments
-  pure $ segmentsToTrail splineSegments
+  pure $ close $ segmentsToTrail splineSegments

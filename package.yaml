@@ -37,6 +37,8 @@ library:
   source-dirs: src
   exposed-modules:
     - Diagrams.Segment.SpiroSpline
+    - Diagrams.Segment.SpiroSpline.Internal.FFI
+    - Diagrams.Segment.SpiroSpline.Internal.Types
   when:
     - condition: os(darwin)
       include-dirs:

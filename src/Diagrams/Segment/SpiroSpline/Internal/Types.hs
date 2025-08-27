@@ -5,7 +5,7 @@
 {-# LANGUAGE RecordWildCards #-}
 
 {- |
-Module: Diagrams.Segment.SpiroSpline.Types
+Module: Diagrams.Segment.SpiroSpline..Internal.Types
 Copyright: (c) Marcellus Siegburg, 2025
 License: MIT
 Maintainer: marcellus.siegburg@uni-due.de
@@ -13,7 +13,7 @@ Maintainer: marcellus.siegburg@uni-due.de
 Provides the high level interface to use the underlying C library
 by providing data types that have to be used in order to do so.
 -}
-module Diagrams.Segment.SpiroSpline.Types (
+module Diagrams.Segment.SpiroSpline.Internal.Types (
   -- * Input
   SpiroPoint (..),
   SpiroSpline (..),
@@ -36,7 +36,7 @@ import Data.List.NonEmpty (NonEmpty, prependList, singleton, (<|))
 import Diagrams.Prelude (P2, p2, unp2)
 import GHC.Generics (Generic)
 
-import Diagrams.Segment.SpiroSpline.FFI (
+import Diagrams.Segment.SpiroSpline.Internal.FFI (
   BezierSegment (..),
   Four (Four, four, one, three, two),
   SpiroControlPoint (..),
@@ -138,7 +138,7 @@ fromSpiroSpline path =
 Transform the internal C library bezier segment representation
 into the higher level 'SplineSegment'.
 -}
-convertBezierSegment :: BezierSegment -> SplineSegment
+convertBezierSegment :: BezierSegment -> SplineSegment (P2 Double)
 convertBezierSegment BezierSegment {..} =
   case chr $ fromIntegral bezierSegmentType of
     'm' -> MoveTo two
@@ -153,15 +153,15 @@ convertBezierSegment BezierSegment {..} =
 {- |
 A spline segment. For details see C library documentation.
 -}
-data SplineSegment
+data SplineSegment point
   = -- | where to continue
-    MoveTo (P2 Double)
+    MoveTo !point
   | -- | a line from the first point to the second
-    LineTo (P2 Double) (P2 Double)
+    LineTo !point !point
   | -- | a quadratic bezier curve
-    QuadraticBezier (P2 Double) (P2 Double) (P2 Double)
+    QuadraticBezier !point !point !point
   | -- | a cubic bezier curve
-    CubicBezier (P2 Double) (P2 Double) (P2 Double) (P2 Double)
+    CubicBezier !point !point !point !point
   | -- | some end marker
-    Close (P2 Double)
-  deriving Show
+    Close !point
+  deriving (Eq, Foldable, Functor, Show)

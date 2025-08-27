@@ -4,7 +4,7 @@
 {-# LANGUAGE PatternSynonyms #-}
 
 {- |
-Module: Diagrams.Segment.SpiroSpline.FFI
+Module: Diagrams.Segment.SpiroSpline.Internal.FFI
 Copyright: (c) Marcellus Siegburg, 2025
 License: MIT
 Maintainer: marcellus.siegburg@uni-due.de
@@ -16,7 +16,7 @@ in order to convert spiro control points into bezier segments.
 For more information on spiro splines see also the documentation
 of the above linked C library.
 -}
-module Diagrams.Segment.SpiroSpline.FFI (
+module Diagrams.Segment.SpiroSpline.Internal.FFI (
   BezierSegment (..),
   Four (..),
   SpiroControlPoint (..),
