@@ -82,6 +82,7 @@ test-suite diagrams-spiro-splines-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Diagrams.Segment.Internal.TypesSpec
       Diagrams.Segment.SpiroSplineSpec
       Paths_diagrams_spiro_splines
   hs-source-dirs:
